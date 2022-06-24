@@ -1,53 +1,61 @@
-import { NoPermissionToCreatePeladaException } from './errors/NoPermissionToCreatePeladaException';
-import { NoPermissionToInvitePlayerException } from './errors/NoPermissionToInvitePlayerException';
-import { NoPermissionToRemovePlayerException } from './errors/NoPermissionToRemovePlayerException';
-import { PeladaWithWrongDateException } from './errors/PeladaWithWrongDateException';
-import { PlayerIsAlreadyInThePelada } from './errors/PlayersIsAlreadyInThePelada';
+import {
+    NoPermissionToCreatePeladaException,
+    NoPermissionToInvitePlayerException,
+    NoPermissionToRemovePlayerException,
+    PeladaWithWrongDateException,
+    PlayerIsAlreadyInThePelada
+} from './errors';
 import { Player } from './Player';
 
 class Pelada {
-  invitePlayer(potentialAdemin: Player, player: Player) {
-    if (!potentialAdemin.isAdmin) {
-      throw new NoPermissionToInvitePlayerException();
+    invitePlayer(potentialAdemin: Player, player: Player) {
+        if (!potentialAdemin.isAdmin) {
+            throw new NoPermissionToInvitePlayerException();
+        }
     }
-  }
-  kickPlayer(potentialAdemin: Player, playerToRemove: Player) {
-    if (!potentialAdemin.isAdmin) {
-      throw new NoPermissionToRemovePlayerException();
-    }
-  }
-  private constructor(
-    readonly place: string,
-    readonly maxPlayers: number,
-    readonly minPlayers: number,
-    readonly date: Date,
-    readonly players: Player[],
-    readonly owner?: Player
-  ) {}
+    kickPlayer(potentialAdemin: Player, playerToRemove: Player) {
+        if (!potentialAdemin.isAdmin) {
+            throw new NoPermissionToRemovePlayerException();
+        }
 
-  addPlayer = (player: Player) => {
-    if (this.players.some((p) => p.id === player.id)) {
-      throw new PlayerIsAlreadyInThePelada();
+        this.players = this.players.filter(
+            (player) => player !== playerToRemove
+        );
     }
-    this.players.push(player);
-  };
+    private constructor(
+        readonly place: string,
+        readonly maxPlayers: number,
+        readonly minPlayers: number,
+        readonly date: Date,
+        private players: Player[],
+        readonly owner?: Player
+    ) {}
 
-  static createPelada(
-    place: string,
-    maxPlayers: number = 20,
-    minPlayers: number = 10,
-    date: Date,
-    owner: Player
-  ) {
-    if (owner.isAdmin === false) {
-      throw new NoPermissionToCreatePeladaException();
-    }
-    var currentDate = new Date();
-    if (date < currentDate) {
-      throw new PeladaWithWrongDateException();
+    addPlayer = (player: Player) => {
+        if (this.players.some((p) => p.id === player.id)) {
+            throw new PlayerIsAlreadyInThePelada();
+        }
+        this.players.push(player);
+    };
+
+    static createPelada(
+        place: string,
+        maxPlayers = 20,
+        minPlayers = 10,
+        date: Date,
+        owner: Player
+    ) {
+        if (owner.isAdmin === false) {
+            throw new NoPermissionToCreatePeladaException();
+        }
+        const currentDate = new Date();
+        if (date < currentDate) {
+            throw new PeladaWithWrongDateException();
+        }
+
+        return new Pelada(place, maxPlayers, minPlayers, date, [owner]);
     }
 
-    return new Pelada(place, maxPlayers, minPlayers, date, [owner]);
-  }
+    getPlayers = () => this.players;
 }
 export default Pelada;
