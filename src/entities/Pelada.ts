@@ -9,10 +9,20 @@ import {
 import { Player } from './Player';
 
 class Pelada {
+	private constructor(
+		readonly place: string,
+		readonly maxPlayers: number,
+		readonly minPlayers: number,
+		readonly date: Date,
+		public players: Player[],
+		readonly owner?: Player,
+	) {}
+
 	invitePlayer(potentialAdemin: Player, player: Player) {
 		if (!potentialAdemin.isAdmin) {
 			throw new NoPermissionToInvitePlayerException();
 		}
+		this.players.push(player);
 	}
 	kickPlayer(potentialAdemin: Player, playerToRemove: Player) {
 		if (!potentialAdemin.isAdmin) {
@@ -24,15 +34,6 @@ class Pelada {
 
 		this.players = this.players.filter((player) => player !== playerToRemove);
 	}
-	private constructor(
-		readonly place: string,
-		readonly maxPlayers: number,
-		readonly minPlayers: number,
-		readonly date: Date,
-		public players: Player[],
-		readonly owner?: Player,
-	) {}
-
 	addPlayer = (player: Player) => {
 		if (this.players.some((p) => p.id === player.id)) {
 			throw new PlayerIsAlreadyInThePelada();
