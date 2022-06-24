@@ -19,11 +19,6 @@ class Pelada {
     }
     this.players.push(player);
   }
-  invitePlayer(potentialAdmin: Player, player: Player) {
-    if (!potentialAdmin.isAdmin) {
-      throw new Error('Você não tem permissão para convidar um jogador!');
-    }
-  }
 
   static createPelada(
     place: string,

@@ -1,3 +1,4 @@
+import { NoPermissionToInvitePlayerException } from "./errors/NoPermissionToInvitePlayerException";
 import Pelada from "./Pelada";
 
 export class Player {
@@ -8,7 +9,7 @@ export class Player {
   }
   invitePlayer(potentialAdmin: Player) {
     if (!this.isAdmin) {
-      throw new Error('Você não tem permissão para convidar um jogador!');
+      throw new NoPermissionToInvitePlayerException();
     }
   }
 
