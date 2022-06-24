@@ -29,7 +29,7 @@ class Pelada {
 		readonly maxPlayers: number,
 		readonly minPlayers: number,
 		readonly date: Date,
-		private players: Player[],
+		public players: Player[],
 		readonly owner?: Player,
 	) {}
 
