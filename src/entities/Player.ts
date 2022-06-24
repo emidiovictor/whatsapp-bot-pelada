@@ -1,7 +1,12 @@
 import Pelada from "./Pelada";
 
 export class Player {
-  invitePlayer(player: Player) {
+  removePlayer(potentialAdmin: Player) {
+    if (!this.isAdmin) {
+      throw new Error('Você não tem permissão para remover um jogador!');
+    }
+  }
+  invitePlayer(potentialAdmin: Player) {
     if (!this.isAdmin) {
       throw new Error('Você não tem permissão para convidar um jogador!');
     }
