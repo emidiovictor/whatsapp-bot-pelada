@@ -18,4 +18,12 @@ describe('CreatePelada', () => {
       thrower.addPlayer(player);
     }).toThrowError('O jogador já está na pelada!');
   });
-})
+
+  it('should throw when admin tries to create with date before than today', () => {
+    var admin = new Player(1, true);
+    expect(() => {
+      Pelada.createPelada('place', 20, 10, new Date(2000, 1, 1), admin);
+    }).toThrowError('Você não pode criar uma pelada antes de ter terminado a pelada atual!');
+
+  });
+});
