@@ -50,4 +50,12 @@ describe('AddPleada', () => {
 			pelada.kickPlayer(admin, player);
 		}).toThrowError('O jogador não está na pelada!');
 	});
+
+	it('A player should be able to join a list for the Pealda', () => {
+		const admin = new Player(1, true);
+		const player = new Player(2);
+		const pelada = Pelada.createPelada('place', 20, 10, new Date(), admin);
+		pelada.addPlayer(player);
+		expect(pelada.players.length).toBe(2);
+	});
 });
