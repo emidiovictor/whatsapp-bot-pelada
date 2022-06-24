@@ -23,7 +23,7 @@ describe('CreatePelada', () => {
     var admin = new Player(1, true);
     expect(() => {
       Pelada.createPelada('place', 20, 10, new Date(2000, 1, 1), admin);
-    }).toThrowError('Você não pode criar uma pelada antes de ter terminado a pelada atual!');
+    }).toThrowError('Você não pode criar uma pelada com a data anterior ao dia atual!');
 
   });
 });

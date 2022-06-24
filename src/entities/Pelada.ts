@@ -1,4 +1,5 @@
 import { NoPermissionToCreatePeladaException } from "./errors/NoPermissionToCreatePeladaException";
+import { PeladaWithWrongDateException } from "./errors/PeladaWithWrongDateException";
 import { PlayerIsAlreadyInThePelada } from "./errors/PlayersIsAlreadyInThePelada";
 import { Player } from "./Player";
 
@@ -31,7 +32,7 @@ class Pelada {
     }
     var currentDate = new Date();
     if (date < currentDate) {
-      throw new Error('Você não pode criar uma pelada antes de ter terminado a pelada atual!');
+      throw new PeladaWithWrongDateException()
     }
 
     return new Pelada(place, maxPlayers, minPlayers, date, [owner]);
