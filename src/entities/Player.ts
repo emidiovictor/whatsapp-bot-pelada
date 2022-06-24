@@ -1,10 +1,11 @@
 import { NoPermissionToInvitePlayerException } from "./errors/NoPermissionToInvitePlayerException";
+import { NoPermissionToRemovePlayerException } from "./errors/NoPermissionToRemovePlayerException";
 import Pelada from "./Pelada";
 
 export class Player {
   removePlayer(potentialAdmin: Player) {
     if (!this.isAdmin) {
-      throw new Error('Você não tem permissão para remover um jogador!');
+      throw new NoPermissionToRemovePlayerException();
     }
   }
   invitePlayer(potentialAdmin: Player) {
