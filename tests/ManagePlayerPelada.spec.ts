@@ -19,6 +19,13 @@ describe('AddPleada', () => {
       notAdminPlayer.invitePlayer(new Player(2, false));
     }
     ).toThrowError('Você não tem permissão para convidar um jogador!');
+  })
 
+  it('should thrown exception when a user whoe is admin tries to remove a player', () => {
+    var notAdmin = new Player(1, false);
+    expect(() => {
+      notAdmin.removePlayer(new Player(2, false));
+    }
+    ).toThrowError('Você não tem permissão para remover um jogador!');
   })
 });
