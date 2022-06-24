@@ -1,5 +1,5 @@
-import Pelada from "../src/entities/Pelada";
-import { Player } from "../src/entities/Player";
+import Pelada from '../src/entities/Pelada';
+import { Player } from '../src/entities/Player';
 
 describe('CreatePelada', () => {
   it('should throw exception if the player is not an admin', () => {
@@ -12,6 +12,8 @@ describe('CreatePelada', () => {
     var admin = new Player(1, true);
     expect(() => {
       Pelada.createPelada('place', 20, 10, new Date(2000, 1, 1), admin);
-    }).toThrowError('Você não pode criar uma pelada com a data anterior ao dia atual!');
+    }).toThrowError(
+      'Você não pode criar uma pelada com a data anterior ao dia atual!'
+    );
   });
 });
