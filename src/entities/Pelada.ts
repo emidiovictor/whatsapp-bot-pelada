@@ -29,6 +29,10 @@ class Pelada {
     if (owner.isAdmin === false) {
       throw new NoPermissionToCreatePeladaException();
     }
+    var currentDate = new Date();
+    if (date < currentDate) {
+      throw new Error('Você não pode criar uma pelada antes de ter terminado a pelada atual!');
+    }
 
     return new Pelada(place, maxPlayers, minPlayers, date, [owner]);
   }
