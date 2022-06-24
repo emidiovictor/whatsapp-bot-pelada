@@ -1,6 +1,8 @@
 import Pelada from "../src/entities/Pelada";
 import Player from "../src/entities/Player";
 
+
+
 describe('AddPleada', () => {
   it('should thrown exception when try to add a player that is already in the pelada', () => {
     var admin = new Player(1, true);
@@ -14,17 +16,22 @@ describe('AddPleada', () => {
   })
 
   it('should thrown exception when a user whoe is not admin tries to invite a player', () => {
-    var notAdminPlayer = new Player(1, false);
+    var admin = new Player(1, true);
+    var notAdmin = new Player(2);
+    var player2 = new Player(2);
+    var pelada = Pelada.createPelada('place', 20, 10, new Date(), admin);
     expect(() => {
-      notAdminPlayer.invitePlayer(new Player(2, false));
-    }
-    ).toThrowError('Você não tem permissão para convidar um jogador!');
+      pelada.invitePlayer(notAdmin, player2);
+    }).toThrowError('Você não tem permissão para convidar jogadores');
   })
 
-  it('should thrown exception when a user whoe is admin tries to remove a player', () => {
-    var notAdmin = new Player(1, false);
+  it('should thrown exception when a user whoe is admin tries to kick a player', () => {
+    const admin = new Player(1, true);
+    const notAdmin = new Player(2);
+    const player2 = new Player(2);
+    const pelada = Pelada.createPelada('place', 20, 10, new Date(), admin);
     expect(() => {
-      notAdmin.removePlayer(new Player(2, false));
+      pelada.kickPlayer(notAdmin, player2);
     }
     ).toThrowError('Você não tem permissão para remover um jogador!');
   })
