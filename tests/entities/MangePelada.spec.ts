@@ -1,5 +1,5 @@
-import Pelada from '../src/entities/Pelada';
-import { Player } from '../src/entities/Player';
+import Pelada from '@entities/Pelada';
+import Player from '@entities/Player';
 
 describe('CreatePelada', () => {
 	it('should throw exception if the player is not an admin', () => {

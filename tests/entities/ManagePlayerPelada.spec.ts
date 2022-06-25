@@ -1,5 +1,5 @@
-import Pelada from '../src/entities/Pelada';
-import Player from '../src/entities/Player';
+import Pelada from '@entities/Pelada';
+import Player from '@entities/Player';
 
 describe('AddPleada', () => {
 	it('should thrown exception when try to add a player that is already in the pelada', () => {
@@ -56,6 +56,14 @@ describe('AddPleada', () => {
 		const player = new Player(2);
 		const pelada = Pelada.createPelada('place', 20, 10, new Date(), admin);
 		pelada.addPlayer(player);
+		expect(pelada.players.length).toBe(2);
+	});
+
+	it('An admin should be able to invite a player to the pelada', () => {
+		const admin = new Player(1, true);
+		const player = new Player(2);
+		const pelada = Pelada.createPelada('place', 20, 10, new Date(), admin);
+		pelada.invitePlayer(admin, player);
 		expect(pelada.players.length).toBe(2);
 	});
 });
