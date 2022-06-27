@@ -8,12 +8,13 @@ export class PeladaService {
 		}
 		const args = splittedCommand.slice(1);
 		const validatedArgs: { date?: Date; time?: string; place?: string } = {};
+		const regexHour = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
 		for (const arg of args) {
 			if (isMatch(arg, 'dd/MM/yyyy')) {
 				validatedArgs.date = parse(arg, 'dd/MM/yyyy', new Date());
 				continue;
 			}
-			const regexHour = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 			if (regexHour.test(arg)) {
 				validatedArgs.time = arg;
 				continue;

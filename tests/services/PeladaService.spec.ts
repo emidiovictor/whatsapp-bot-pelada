@@ -8,7 +8,7 @@ describe('PeladaService', () => {
 		);
 	});
 
-	it('createPelada should throw exception when date is invalid', () => {
+	it('createPelada should throw exception when commands has date is before than last active pelada', () => {
 		const sut = new PeladaService();
 		expect(() => sut.createPelada('.criar 01/32/2020 qualquerLocal 19:00')).toThrowError('Data inválida');
 	});
