@@ -1,5 +1,5 @@
-import Pelada from '@/entities/Pelada';
-import Player from '@/entities/Player';
+import Pelada from '@/domain/entities/Pelada';
+import Player from '@/domain/entities/Player';
 
 describe('AddPleada', () => {
 	it('should thrown exception when try to add a player that is already in the pelada', () => {
