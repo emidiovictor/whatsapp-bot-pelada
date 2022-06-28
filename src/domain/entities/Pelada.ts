@@ -16,6 +16,7 @@ class Pelada {
 		readonly date: Date,
 		public players: Player[],
 		readonly owner?: Player,
+		readonly active?: boolean,
 	) {}
 
 	invitePlayer(potentialAdemin: Player, player: Player) {
@@ -50,7 +51,7 @@ class Pelada {
 			throw new PeladaWithWrongDateException();
 		}
 
-		return new Pelada(place, maxPlayers, minPlayers, date, [owner]);
+		return new Pelada(place, maxPlayers, minPlayers, date, [owner], undefined, true);
 	}
 
 	getPlayers = () => this.players;
