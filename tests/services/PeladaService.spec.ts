@@ -20,7 +20,7 @@ describe('PeladaService', () => {
 		);
 	});
 
-	it('should throw when admin tries to create one pelada but there is already one running', () => {
+	it('should throw exception when admin tries to create one pelada but there is already one running', () => {
 		const sut = createSut();
 		expect(sut.createPelada('.criar 31/02/2020 qualquerLocal 19:00')).rejects.toThrow('Já existe uma pelada rolando!');
 	});
