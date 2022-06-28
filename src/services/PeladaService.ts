@@ -1,9 +1,11 @@
+import { IPeladaRepository } from '@/domain/entities/repositories/IPeladaRepository';
 import { isMatch, parse } from 'date-fns';
 
 export class PeladaService {
-	createPelada(command: string): void {
+	constructor(private readonly peladaRepository: IPeladaRepository) {}
+	async createPelada(command: string): Promise<void> {
 		const splittedCommand = command.split(' ');
-		if (splittedCommand.length < 4) {
+		if (splittedCommand.length < 3) {
 			throw new Error('Para criar uma pelada, utilize o comando: .criar <nome> <data> <horario>');
 		}
 		const args = splittedCommand.slice(1);
@@ -21,11 +23,9 @@ export class PeladaService {
 			}
 			validatedArgs.place = arg;
 		}
-
-		if (!validatedArgs.date) {
-			throw new Error('Data inválida');
+		const runningPelada = await this.peladaRepository.getLastPeladaActive();
+		if (runningPelada) {
+			throw new Error('Já existe uma pelada rolando!');
 		}
 	}
 }
-
-//.criar 31/02/2020 qualquerLocal 19:00
