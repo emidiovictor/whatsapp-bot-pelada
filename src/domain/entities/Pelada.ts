@@ -36,7 +36,7 @@ class Pelada {
 		this.players = this.players.filter((player) => player !== playerToRemove);
 	}
 	addPlayer = (player: Player) => {
-		if (this.players.some((p) => p.id === player.id)) {
+		if (this.players.some((p) => p.phoneNumber === player.phoneNumber)) {
 			throw new PlayerIsAlreadyInThePelada();
 		}
 		this.players.push(player);
